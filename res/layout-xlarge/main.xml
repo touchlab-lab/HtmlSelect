@@ -24,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="italic|bold"
-                    android:textSize="16dip"
+                    android:textSize="17dip"
                     android:text="Created By:"
                     android:paddingTop="5dip"
                     android:paddingLeft="15dip"
@@ -41,19 +41,19 @@
 
             <ImageView
                     android:id="@+id/touchlab"
-                    android:layout_width="65dip"
-                    android:layout_height="65dip"
+                    android:layout_width="125dip"
+                    android:layout_height="125dip"
                     android:src="@drawable/touchlab_logo"
                     android:scaleType="centerInside"
-                    android:paddingRight="15dip"/>
+                    android:paddingRight="40dip"/>
 
             <ImageView
                     android:id="@+id/atavist"
-                    android:layout_width="65dip"
-                    android:layout_height="65dip"
+                    android:layout_width="125dip"
+                    android:layout_height="125dip"
                     android:src="@drawable/atavist_logo"
                     android:scaleType="centerInside"
-                    android:paddingLeft="15dip"/>
+                    android:paddingLeft="40dip"/>
 
 
         </LinearLayout>

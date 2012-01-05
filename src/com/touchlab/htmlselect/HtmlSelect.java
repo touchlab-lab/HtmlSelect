@@ -1,6 +1,8 @@
 package com.touchlab.htmlselect;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,27 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
 
         gestureScanner = new GestureDetector(this);
         uiHandler = new Handler();
+
+
+        ImageView touchLab = (ImageView)findViewById(R.id.touchlab);
+        touchLab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://www.touchlab.co/"));
+                startActivity(intent);
+            }
+        });
+
+        ImageView atavist = (ImageView)findViewById(R.id.atavist);
+        atavist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://atavist.net/"));
+                startActivity(intent);
+            }
+        });
 
         WebView webView = (WebView) findViewById(R.id.browser);
         this.webView = webView;
