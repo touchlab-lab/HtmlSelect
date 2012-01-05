@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="yellow">#cccc00</color>
+    <color name="black_mine">#000000</color>
+    <color name="gray_borders">#cccccc</color>
+    <color name="section_font">#cccccc</color>
+    <color name="white_mine">#ffffff</color>
+    <color name="trans_white">#00FFFFFF</color>
+    <color name="home_list_back">#000000</color>
+    <color name="home_list_back_pressed">#666666</color>
+    <color name="white_back">#ffffffff</color>
+    <color name="white_back_pressed">#aaaaaa</color>
+
+</resources>
+
+
