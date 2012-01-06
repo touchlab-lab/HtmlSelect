@@ -193,15 +193,6 @@ var startSelectingEvent = null
 var selectionStart = null
 var selectionEnd = null
 
-/*var pointDownFunc = function(event)
- {
- if(selecting)
- {
- checkForPosition(event)
- selecting = false
- }
- };*/
-
 function startSelection() {
     clearDecks(true)
 }
@@ -227,7 +218,7 @@ function clearDecks(sel) {
         createBigTextIndex(document.getElementById("wrap"))
         if (startSelectingEvent != null)
             selectClosestWord(startSelectingEvent)
-//            checkForPosition(startSelectingEvent)
+
     }
 }
 
@@ -236,21 +227,6 @@ document.ontouchstart = function(e) {
         e.preventDefault()
 
     var event = e.touches[0];
-    /*var x = event.clientX;
-     var y = event.clientY;
-
-     if(selectionStart != null && selectionEnd != null)
-     {
-     var startDist = lineDistance({x:x, y:y}, {x:selectionStart.x,  y:selectionStart.y});
-     var endDist = lineDistance({x:x, y:y}, {x:selectionEnd.x,  y:selectionEnd.y});
-
-     if(startDist < endDist)
-     {
-     var temp = selectionStart
-     selectionStart = selectionEnd
-     selectionEnd = temp
-     }
-     }*/
 
     selectionStart = null
     selectionEnd = null
@@ -262,11 +238,6 @@ document.ontouchstart = function(e) {
     checkForPosition(event)
 }
 
-/*document.ontouchend = function(event)
- {
- console.log("ontouchend")
- pointDownFunc(event.touches[0])
- }*/
 
 document.ontouchmove = function(e) {
     if (selecting)
@@ -346,12 +317,6 @@ function checkForPosition(event) {
             node = lastMinNode
 
         if (node != null) {
-            /*var combinedRange = document.createRange();
-             combinedRange.setStart(node, 0)
-             combinedRange.setEnd(node, node.nodeValue.length)
-
-             window.getSelection().removeAllRanges()
-             window.getSelection().addRange(combinedRange)*/
 
             var range = findClosestRange(node, event)
 
@@ -427,8 +392,6 @@ function positionHandles() {
         selEnd = addHandle(SEL_END_HANDLE, "selhand_end", false);
     }
 
-//    selStart = $(selStart)
-//    selStart = $(selEnd)
 
     var showStart, showEnd
 
@@ -484,7 +447,6 @@ function reportSelectionCoords() {
         console.log(e)
     }
 }
-
 
 function OSgetSelection() {
 

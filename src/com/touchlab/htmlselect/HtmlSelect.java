@@ -37,7 +37,6 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
         gestureScanner = new GestureDetector(this);
         uiHandler = new Handler();
 
-
         ImageView touchLab = (ImageView)findViewById(R.id.touchlab);
         touchLab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +76,8 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
 
                 if (isSelecting()) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        Log.e("#############", "showClipManager");
-                        showClipManager(motionEvent);
+                        Log.e("#############", "reportSelectionCoords");
+                        reportSelectionCoords();
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                         hideClipManager();
                     }
@@ -91,12 +90,11 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
         webView.loadUrl("file:///android_asset/html_select_template.html");
 
     }
-
+    //the user has clicked on the "Toast" button in the clipboard
+    //OSgetSelection() collects the selection string and calls pushSelection(String)
     private void grabSelection() {
-
         String js = "javascript:OSgetSelection()";
         webView.loadUrl(js);
-
     }
 
     private class javaScriptInterface {
@@ -132,7 +130,7 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
         }
 
         public void pushAutoSelect() {
-            showClipManager(null);
+            reportSelectionCoords();
         }
     }
 
@@ -142,10 +140,14 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
         hideClipManager();
     }
 
-    private void showClipManager(MotionEvent motionEvent) {
+    //this is called from the initial long press to each subsequent onTouch event.
+    //reportSelectionCoords() returns the xy coordinates to the method pushSelectionCoords(x,y) to determine
+    //clipboard positioning
+    private void reportSelectionCoords() {
         webView.loadUrl("javascript:reportSelectionCoords()");
     }
 
+    //calculates x y coordinates to display clipboard.......this is not ideal and is only a rough guess
     private void showClipManager(int y) {
         Display display = getWindowManager().getDefaultDisplay();
         float yOffset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Y_POPUP_OFFSET, getResources().getDisplayMetrics());
@@ -176,14 +178,17 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
         this.selecting = selecting;
     }
 
+    //logging from webview JS
     WebChromeClient chromeClient = new WebChromeClient() {
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-            Log.e("########", consoleMessage.sourceId() + ": " + consoleMessage.messageLevel() + " : " + consoleMessage.message() + " : " + consoleMessage.lineNumber());
+            Log.i("########", consoleMessage.sourceId() + ": " + consoleMessage.messageLevel() + " : " + consoleMessage.message() + " : " + consoleMessage.lineNumber());
             return true;
         }
     };
 
+
+    //////////////////////////////////////////////////////////////OnGestureListener methods
     public boolean onDown(MotionEvent motionEvent) {
         return false;
     }
@@ -202,7 +207,7 @@ public class HtmlSelect extends Activity implements GestureDetector.OnGestureLis
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         return false;
     }
-
+    //very first part that is fired when a user does a long press and initiates the selection
     public void onLongPress(MotionEvent motionEvent) {
 
         if (!isSelecting()) {
